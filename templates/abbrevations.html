@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search BCI abbreviations</title>
+</head>
+<body>
+    <h1>BCI abbreviation search</h1>
+    <form method="POST" action="/abbrevations">
+        <label for="abbreviation">Enter abbreviation:</label>
+        <input type="text" id="abbreviation" name="abbreviation" required>
+        <button type="submit">Search</button>
+    </form>
+    {% if abbreviation %}
+    <p>Abbreviation: {{ abbreviation }}</p>
+    <p>Explanation: {{ explanation }}</p>
+    {% endif %}
+</body>
+</html>
