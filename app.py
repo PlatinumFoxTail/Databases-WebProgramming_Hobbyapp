@@ -2,9 +2,14 @@ from flask import Flask
 from flask import redirect, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
+#setting environment variable (Osa 2: Ympäristömuuttujat)
+from os import getenv
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2:///habmarti?host=/home/habmarti/pgsql/sock"
+app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
+
+#setting environment variable (Osa 2: Ympäristömuuttujat)
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 @app.route("/")
