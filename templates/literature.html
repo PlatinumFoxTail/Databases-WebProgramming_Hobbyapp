@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search BCI literature</title>
+</head>
+<body>
+    <h1>BCI literature search</h1>
+    <form method="POST" action="/literature">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title">
+        <br>
+
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author">
+        <br>
+
+        <label for="keywords">Keywords:</label>
+        <input type="text" id="keywords" name="keywords">
+        <br>
+
+        <label for="rating">Rating:</label>
+        <input type="text" id="rating" name="rating">
+        <br>
+
+        <label for="availability">Availability:</label>
+        <input type="text" id="availability" name="availability">
+        <br>
+
+        <button type="submit">Search</button>
+    </form>
+    
+    {% if results %}
+    <h2>Results</h2>
+    <ul>
+        {% for item in results %}
+            <li>
+                <strong>Title:</strong> {{ item.title }}<br>
+                <strong>Author:</strong> {{ item.author }}<br>
+                <strong>Keywords:</strong> {{ item.keywords }}<br>
+                <strong>Rating:</strong> {{ item.rating }}<br>
+                <strong>Availability:</strong> {{ item.availability }}<br>
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>
