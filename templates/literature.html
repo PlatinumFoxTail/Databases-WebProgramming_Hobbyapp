@@ -4,6 +4,7 @@
     <title>Search BCI literature</title>
 </head>
 <body>
+    <!-- Search Form -->
     <h1>BCI literature search</h1>
     <form method="POST" action="/literature">
         <label for="title">Title:</label>
@@ -28,6 +29,19 @@
 
         <button type="submit">Search</button>
     </form>
+
+    <!-- Add Literature Form -->
+    <form method="POST" action="/literature">
+        <h2>Add Literature</h2>
+        <input type="text" name="title" placeholder="Title" required><br>
+        <input type="text" name="author" placeholder="Author" required><br>
+        <input type="text" name="keywords" placeholder="Keywords" required><br>
+        <input type="text" name="rating" placeholder="Rating" required><br>
+        <input type="text" name="availability" placeholder="Availability" required><br>
+        <button type="submit">Add</button>
+    </form>
+
+    <!-- Display Literature Results -->
     
     {% if results %}
     <h2>Results</h2>
