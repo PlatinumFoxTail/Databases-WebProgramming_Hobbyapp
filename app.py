@@ -36,59 +36,86 @@ def abbrevations():
 def stakeholders():
     return "WIP BCI stakeholders"
 
+#Adding literature into literature table
 @app.route("/literature", methods=["GET", "POST"])
 def literature():
+    #initializing results
+    title = None
+    author = None
+    keywords = None
+    rating = None
+    availability = None
+    results = None  
+
     if request.method == "POST":
-        # Handle the form submission for adding a new literature item
-        title = request.form.get("title")
-        author = request.form.get("author")
-        keywords = request.form.get("keywords")
-        rating = request.form.get("rating")
-        availability = request.form.get("availability")
+        if "title" in request.form and "author" in request.form and "keywords" in request.form and "rating" in request.form and "availability" in request.form:
+            #handling the form submission for adding a new literature item
+            title = request.form.get("title")
+            author = request.form.get("author")
+            keywords = request.form.get("keywords")
+            rating = request.form.get("rating")
+            availability = request.form.get("availability")
 
-        # Insert the new literature item into the database
-        db.session.execute(
-            text("INSERT INTO literature (title, author, keywords, rating, availability) VALUES (:title, :author, :keywords, :rating, :availability)"),
-            {"title": title, "author": author, "keywords": keywords, "rating": rating, "availability": availability}
-        )
-        db.session.commit()
-        flash("Literature item added successfully", "success")
+            #inserting the new literature item into the database
+            db.session.execute(
+                text("INSERT INTO literature (title, author, keywords, rating, availability) VALUES (:title, :author, :keywords, :rating, :availability)"),
+                {"title": title, "author": author, "keywords": keywords, "rating": rating, "availability": availability}
+            )
+            db.session.commit()
+            flash("Literature item added successfully", "success")
 
-        return redirect(url_for("literature"))
-    return render_template("literature.html")
+            # Redirect to the same route after adding
+            return redirect(url_for("literature"))
 
+    #if the request method is "GET," return a response here (e.g., render a template or redirect)
+    return render_template("literature.html", title=title, author=author, keywords=keywords, rating=rating, availability=availability, results=results)
 
-    #title = request.form.get("title")
-    #author = request.form.get("author")
-    #keywords = request.form.get("keywords")
-    #rating = request.form.get("rating")
-    #availability = request.form.get("availability")
+#searching literature
+@app.route("/searchbooks", methods=["POST"])
+def searchbooks():
+    #initializing results
+    title = None
+    author = None
+    keywords = None
+    rating = None
+    availability = None
+    results = None
+    
+    if request.method == "POST":
+        if "title" in request.form or "author" in request.form or "keywords" in request.form or "rating" in request.form or "availability" in request.form:
+            title = request.form.get("title")
+            author = request.form.get("author")
+            keywords = request.form.get("keywords")
+            rating = request.form.get("rating")
+            availability = request.form.get("availability")
+            
+            #building the SQL query based on the provided fields
+            query = "SELECT * FROM literature WHERE 1=1"
+            params = {}
 
-    ## Build the SQL query dynamically based on the provided fields
-    #query = "SELECT * FROM literature WHERE 1=1"
-    #params = {}
+            if title:
+                query += " AND title = :title"
+                params["title"] = title
+            if author:
+                query += " AND author = :author"
+                params["author"] = author
+            if keywords:
+                query += " AND keywords = :keywords"
+                params["keywords"] = keywords
+            if rating:
+                query += " AND rating = :rating"
+                params["rating"] = rating
+            if availability:
+                query += " AND availability = :availability"
+                params["availability"] = availability
 
-    #if title:
-        #query += " AND title = :title"
-        #params["title"] = title
-    #if author:
-        #query += " AND author = :author"
-        #params["author"] = author
-    #if keywords:
-        #query += " AND keywords = :keywords"
-        #params["keywords"] = keywords
-    #if rating:
-        #query += " AND rating = :rating"
-        #params["rating"] = rating
-    #if availability:
-        #query += " AND availability = :availability"
-        #params["availability"] = availability
-
-    ## Execute the SQL query
-    #result = db.session.execute(text(query), params)
-    #results = result.fetchall()
-
-    #return render_template("literature.html", title=title, author=author, keywords=keywords, rating=rating, availability=availability, results=results)
+            #executing the SQL query
+            result = db.session.execute(text(query), params)
+            results = result.fetchall()
+    
+    #return the template with results
+    return render_template("literature.html", title=title, author=author, keywords=keywords, rating=rating, availability=availability, results=results)
+    
 
 @app.route("/discussions")
 def discussions():
