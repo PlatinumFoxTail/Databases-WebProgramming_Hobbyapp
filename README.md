@@ -12,3 +12,11 @@ The features of the app are:
 - The admin can add/remove BCI abbrevations, stakeholders, literature, discussions, and users
 
 The app can be tested locally by following the following instructions: https://hy-tsoha.github.io/materiaali/aikataulu/#huomio-flyiosta
+
+Status at Intermediate hand-in 24.9.23:
+
+I. Literature page improvement needs:
+- The accepted form of BCI literature search should be dipslayed in the search boxes in gray e.g. keywords as {keyword1, keyword2}
+- Some type of message should be displayed if Add literature is succesful or unsucessful or already added
+- Title size of BCI literature search as h2 and h1 as Literature search
+- Consider if have time to fine tune search function that can only add parts of the search items e.g. Brain computer*, only one keyword
