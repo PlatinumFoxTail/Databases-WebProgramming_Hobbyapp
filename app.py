@@ -32,9 +32,79 @@ def abbrevations():
 
     return render_template("abbrevations.html", abbreviation=abbreviation, explanation=explanation)
 
-@app.route("/stakeholders")
+#Adding stakeholder into stakeholder table
+@app.route("/stakeholders", methods=["GET", "POST"])
 def stakeholders():
-    return "WIP BCI stakeholders"
+    #initializing results
+    name = None
+    type = None
+    description = None
+    contact = None
+    results = None  
+
+    if request.method == "POST":
+        if "name" in request.form and "type" in request.form and "description" in request.form and "contact" in request.form:
+            #handling the form submission for adding a new literature item
+            name = request.form.get("name")
+            type = request.form.get("type")
+            description = request.form.get("description")
+            contact = request.form.get("contact")
+
+            #inserting the new stakeholder item into the database
+            db.session.execute(
+                text("INSERT INTO stakeholders (name, type, description, contact) VALUES (:name, :type, :description, :contact)"),
+                {"name": name, "type": type, "description": description, "contact": contact}
+            )
+            db.session.commit()
+            flash("Stakeholder item added successfully", "success")
+
+            # Redirect to the same route after adding
+            return redirect(url_for("stakeholders"))
+
+    #if the request method is "GET," return a response here (e.g., render a template or redirect)
+    return render_template("stakeholders.html", name=name, type=type, description=description, contact=contact, results=results)
+
+#searching stakeholder
+@app.route("/searchstakeholders", methods=["POST"])
+def searchstakeholders():
+    #initializing results
+    name = None
+    type = None
+    description = None
+    contact = None
+    results = None
+    
+    if request.method == "POST":
+       if "name" in request.form or "type" in request.form or "description" in request.form or "contact" in request.form:
+            #handling the form submission for adding a new literature item
+            name = request.form.get("name")
+            type = request.form.get("type")
+            description = request.form.get("description")
+            contact = request.form.get("contact")
+            
+            #building the SQL query based on the provided fields
+            query = "SELECT * FROM stakeholders WHERE 1=1"
+            params = {}
+
+            if name:
+                query += " AND name = :name"
+                params["name"] = name
+            if type:
+                query += " AND type = :type"
+                params["type"] = type
+            if description:
+                query += " AND description = :description"
+                params["description"] = description
+            if contact:
+                query += " AND contact = :contact"
+                params["contact"] = contact
+
+            #executing the SQL query
+            result = db.session.execute(text(query), params)
+            results = result.fetchall()
+    
+    #return the template with results
+    return render_template("stakeholders.html", name=name, type=type, description=description, contact=contact, results=results)
 
 #Adding literature into literature table
 @app.route("/literature", methods=["GET", "POST"])
