@@ -20,3 +20,10 @@ I. Literature page improvement needs:
 - Some type of message should be displayed if Add literature is succesful or unsucessful or already added
 - Title size of BCI literature search as h2 and h1 as Literature search
 - Consider if have time to fine tune search function that can only add parts of the search items e.g. Brain computer*, only one keyword
+
+II. Stakeholder  page improvement needs:
+- The accepted form of BCI stakeholder search should be dipslayed in the search boxes in gray
+- Some type of message should be displayed if Add stakeholder is succesful or unsucessful or already added
+- Title size of BCI literature search changed to BCI stakeholder search and title as h2 and h1 as Add BCI stakeholder 
+- Consider if have time to fine tune search function that can only add parts of the search items e.g. Device* in description
+- Make the box larger so can see options for type searches
