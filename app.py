@@ -1,18 +1,21 @@
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for, Blueprint
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
 from os import getenv
 from sqlalchemy import or_
+from discussion_app.app import app as discussion_app  # Import the discussion app
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.secret_key = "your_secret_key"  # Flask's session management requires a secret key to be set for security reasons. Needed at least for adding literature in literature page.
+app.secret_key = getenv("SECRET_KEY")  # Use the same secret key as in discussion app
 db = SQLAlchemy(app)
 
+discussion_bp = Blueprint('discussion', __name__, url_prefix='/discussion')
+
 @app.route("/")
-def index():
-    return render_template("index.html")
+def index1():
+    return render_template("index1.html")
 
 @app.route("/abbrevations", methods=["GET", "POST"])
 def abbrevations():
@@ -187,6 +190,8 @@ def searchbooks():
     return render_template("literature.html", title=title, author=author, keywords=keywords, rating=rating, availability=availability, results=results)
     
 
-@app.route("/discussions")
+@discussion_bp.route("/discussion")
 def discussions():
-    return "WIP BCI discussions"
+    return discussion_app.test_client().get("/").data  # Replace with the URL of your discussion app
+
+app.register_blueprint(discussion_bp)
