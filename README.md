@@ -1,3 +1,4 @@
+BCI's LITTLE HELPER APP
 
 This app is related to the field of brain-computer interface, hereafter reffered to as BCI. 
 
