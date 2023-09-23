@@ -14,20 +14,26 @@ The app can be tested locally by following the following instructions: https://h
 
 Status at Intermediate hand-in 24.9.23:
 
-I. Literature page improvement needs:
+I. General status of app:
+- It is possible search for meaning of abbrevations through the "Search BCI abbrevations" link
+- It is possible to search and add literature. NB! The keywords section should be added within {}
+- It is possible to search and add stakeholders.
+- The user sign in and out, as well as admin rights still need to be added.
+
+II. Literature page improvement needs:
 - The accepted form of BCI literature search should be dipslayed in the search boxes in gray e.g. keywords as {keyword1, keyword2}
 - Some type of message should be displayed if Add literature is succesful or unsucessful or already added
 - Title size of BCI literature search as h2 and h1 as Literature search
 - Consider if have time to fine tune search function that can only add parts of the search items e.g. Brain computer*, only one keyword
 
-II. Stakeholder  page improvement needs:
+III. Stakeholder  page improvement needs:
 - The accepted form of BCI stakeholder search should be dipslayed in the search boxes in gray
 - Some type of message should be displayed if Add stakeholder is succesful or unsucessful or already added
 - Title size of BCI literature search changed to BCI stakeholder search and title as h2 and h1 as Add BCI stakeholder 
 - Consider if have time to fine tune search function that can only add parts of the search items e.g. Device* in description
 - Make the box larger so can see options for type searches
 
-III. Project scope revision
+IV. Project scope revision
 - It was noticed and decided togther with course assistant, that the original planned BCI discussion feature was too extensive to include into the project. So following feature was decided to leave out from the project:
 
 "The user can search and add comments to BCI related discussions e.g. Discussion topic: "BCI job openings in Finland" -> User1: "Can not find BCI companies in Finland. Any suggestions of companies based in Finland adjacent to BCI field?" -> User2: "You can try reaching out to comapny x, y, and z" -> User1: "I reached out to them both, and actually company y is about to initiate something in the field, so I will add it into the BCI stakeholder list""
