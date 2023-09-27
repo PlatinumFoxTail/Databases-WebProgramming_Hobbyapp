@@ -1,18 +1,77 @@
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
 from os import getenv
 from sqlalchemy import or_
+from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.secret_key = "your_secret_key"  # Flask's session management requires a secret key to be set for security reasons. Needed at least for adding literature in literature page.
+app.secret_key = getenv("SECRET_KEY")
 db = SQLAlchemy(app)
 
 @app.route("/")
-def index1():
-    return render_template("index1.html")
+def index():
+    return render_template("index.html")
+
+@app.route("/register", methods=["GET", "POST"])
+def create_user():
+    """Function handling when a new user is created"""
+
+    if request.method == "GET":
+        return render_template("register.html")
+    
+    #TO DO: Add conditions for error messages e.g. passwords not matching
+    
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password1"]
+        role = int(request.form["role"])
+
+        # Hahmotellaan salasanan hajautusarvo ja tallennetaan se tietokantaan
+        hash_value = generate_password_hash(password)
+        sql = text("INSERT INTO users (username, password, role) VALUES (:username, :password, :role)")
+        db.session.execute(sql, {"username":username, "password":hash_value, "role": role})
+        db.session.commit()
+        
+        flash("User created", "success")
+        return redirect("/register")
+    
+    return render_template("register.html")
+
+@app.route("/login",methods=["POST"])
+def login():
+    username = request.form["username"]
+    password = request.form["password"]
+
+    # Haetaan käyttäjä tietokannasta
+    sql = text("SELECT id, password FROM users WHERE username=:username")
+    result = db.session.execute(sql, {"username":username})
+    user = result.fetchone()
+
+    if not user:
+        # Käyttäjää ei löytynyt, voit lisätä tähän sopivan virheilmoituksen
+        return "Invalid username"
+
+    stored_hash = user.password
+
+    if check_password_hash(stored_hash, password):
+        # Salasana on oikein, voit suorittaa kirjautumisen
+        session["username"] = username
+        return redirect("/welcome")
+    else:
+        # Väärä salasana, voit lisätä tähän sopivan virheilmoituksen
+        return "Invalid password"
+
+@app.route("/logout")
+def logout():
+    del session["username"]
+    return redirect("/")
+
+@app.route("/welcome")
+def welcome():
+    return render_template("welcome.html")
 
 @app.route("/abbrevations", methods=["GET", "POST"])
 def abbrevations():
