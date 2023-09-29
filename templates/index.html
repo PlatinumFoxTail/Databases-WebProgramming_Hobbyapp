@@ -9,6 +9,7 @@
 
 
 {% else %}
+<b>Log in to BCI's little helper app:</b>
 <form action="/login" method="POST">
 <p>Username:<br>
 <input type="text" name="username"></p>
@@ -17,8 +18,6 @@
 <input type="submit" value="Sign in">
 </form>
 {% endif %}
-
-<p>Click "Register a new user" button to create account</p> 
 <form action="/register" method="GET">
 <input type="submit" value="Register a new user">
 </form>

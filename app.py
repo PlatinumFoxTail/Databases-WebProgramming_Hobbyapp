@@ -26,11 +26,23 @@ def create_user():
     
     if request.method == "POST":
         username = request.form["username"]
-        password = request.form["password1"]
+        password1 = request.form["password1"]
+        password2 = request.form ["password2"]
         role = int(request.form["role"])
+        
+        #checking if username taken
+        sql = text("SELECT username from users WHERE username=:username")
+        result = db.session.execute(sql, {"username": username})
+        existing_user = result.fetchone()
+        if existing_user is not None:
+            return render_template("error.html", message="Choose another username.")
+        
+        #checking if Password and Repeated password same
+        if password1 != password2:
+            return render_template("error.html", message="Entered passwords do not match")
 
         # Hahmotellaan salasanan hajautusarvo ja tallennetaan se tietokantaan
-        hash_value = generate_password_hash(password)
+        hash_value = generate_password_hash(password1)
         sql = text("INSERT INTO users (username, password, role) VALUES (:username, :password, :role)")
         db.session.execute(sql, {"username":username, "password":hash_value, "role": role})
         db.session.commit()
