@@ -39,10 +39,11 @@ In case of issues when trying to run the app locally, following info might be us
 ## Status at Intermediate hand-in 24.9.23:
 
 I. General status of app:
-- It is possible search for meaning of abbrevations through the "Search BCI abbrevations" link
-- It is possible to search and add literature. NB! The keywords section should be added within {}
-- It is possible to search and add stakeholders.
-- Admin rights still need to be added.
+- Search abbrevationns OK.
+- Search and add literature OK. NB! The keywords section should be added within {}
+- Search and add stakeholders OK.
+- Register and login OK
+- Admin rights still need to be added e.g. remove users.
 
 II. Literature page improvement needs:
 - The accepted form of BCI literature search should be dipslayed in the search boxes in gray e.g. keywords as {keyword1, keyword2}
@@ -61,7 +62,3 @@ IV. Project scope revision
 - It was noticed and decided togther with course assistant, that the original planned BCI discussion feature was too extensive to include into the project. So following feature was decided to leave out from the project:
 
 "The user can search and add comments to BCI related discussions e.g. Discussion topic: "BCI job openings in Finland" -> User1: "Can not find BCI companies in Finland. Any suggestions of companies based in Finland adjacent to BCI field?" -> User2: "You can try reaching out to comapny x, y, and z" -> User1: "I reached out to them both, and actually company y is about to initiate something in the field, so I will add it into the BCI stakeholder list""
-
-V. Sign in and out improvement needs:
-- In the welcome page, there should be a button to log out
-- When creating a new user is registered in register page, the username and password should be checked that it is OK e.g. password = Repeat Password
