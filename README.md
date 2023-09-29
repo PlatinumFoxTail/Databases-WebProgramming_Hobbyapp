@@ -10,8 +10,6 @@ The features of the app are:
 - The user can search and add BCI literature e.g. Title, Author, Pre-defined keywords, Rating, Availability
 - The admin can add/remove BCI abbrevations, stakeholders, literature, discussions, and users
 
-The app can be tested locally by following the following instructions: https://hy-tsoha.github.io/materiaali/aikataulu/#huomio-flyiosta
-
 # How to run the app
 *Prerequisite*: A PostgreSQL instance running.
 
@@ -36,6 +34,7 @@ Run the application from the same folder where the app is located with:
 ```
 flask run
 ```
+In case of issues when trying to run the app locally, following info might be useful: https://hy-tsoha.github.io/materiaali/aikataulu/#huomio-flyiosta
 
 ## Status at Intermediate hand-in 24.9.23:
 
