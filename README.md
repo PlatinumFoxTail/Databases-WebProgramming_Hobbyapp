@@ -21,20 +21,20 @@ Clone this repository to you own computer and navigate to its root folder. In th
 
 Afterwards in the same folder create a virtual environment and install dependencies:
 ```
-$ python3 -m venv venv
-$ source venv/bin/activate
-$ pip install -r ./requirements.txt
+python3 -m venv venv
+source venv/bin/activate
+pip install -r ./requirements.txt
 ```
 
 Define the database schema with following command:
 ```
-$ psql < schema.sql
+psql < schema.sql
 ```
 Alternatively you can also copy paste the schemas one by one from schema.sql into you PostgreSQL interpreter.
 
 Run the application from the same folder where the app is located with:
 ```
-$ flask run
+flask run
 ```
 
 ## Status at Intermediate hand-in 24.9.23:
