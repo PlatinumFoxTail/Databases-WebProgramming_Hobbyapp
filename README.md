@@ -1,4 +1,4 @@
-BCI's LITTLE HELPER APP
+# BCI's LITTLE HELPER APP
 
 This app is related to the field of brain-computer interface, hereafter reffered to as BCI. 
 
@@ -12,7 +12,32 @@ The features of the app are:
 
 The app can be tested locally by following the following instructions: https://hy-tsoha.github.io/materiaali/aikataulu/#huomio-flyiosta
 
-Status at Intermediate hand-in 24.9.23:
+# How to run the app
+*Prerequisite*: A PostgreSQL instance running.
+
+Clone this repository to you own computer and navigate to its root folder. In the root folder create a .env file with the following variables defined:
+* `DATABASE_URL` for the URL of your PostgreSQL database
+* `SECRET_KEY` for the secret key of the Flask application
+
+Afterwards in the same folder create a virtual environment and install dependencies:
+```
+$ python3 -m venv venv
+$ source venv/bin/activate
+$ pip install -r ./requirements.txt
+```
+
+Define the database schema with following command:
+```
+$ psql < schema.sql
+```
+Alternatively you can also copy paste the schemas one by one from schema.sql into you PostgreSQL interpreter.
+
+Run the application from the same folder where the app is located with:
+```
+$ flask run
+```
+
+## Status at Intermediate hand-in 24.9.23:
 
 I. General status of app:
 - It is possible search for meaning of abbrevations through the "Search BCI abbrevations" link
