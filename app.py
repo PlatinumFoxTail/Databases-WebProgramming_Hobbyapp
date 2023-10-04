@@ -17,12 +17,9 @@ def index():
 
 @app.route("/register", methods=["GET", "POST"])
 def create_user():
-    """Function handling when a new user is created"""
 
     if request.method == "GET":
         return render_template("register.html")
-    
-    #TO DO: Add conditions for error messages e.g. passwords not matching
     
     if request.method == "POST":
         username = request.form["username"]
