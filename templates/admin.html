@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+</head>
+
+<body>
+    <h1>Welcome to the Admin Panel</h1>
+    <p>Here you can remove rows from the tables below, by typing Table name and and number of that id for the row of the table you want to remove</p>
+
+    <!-- Selecting row to be removed -->
+    <form action="/admin" method="post">
+    <b> <strong> Table:</strong><br> 
+    <input type="text" name="table" id="table" class="input-box" placeholder="select table name from below" required></b><br>
+    <b> <strong> id:</strong><br>
+    <input type="integer" name="id" id="id" class="input-box" placeholder="select id number from table" required></b><br>
+    <input type="submit" value="Remove row"><br>
+
+    <p>{% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for message in messages %}
+            <strong><div class="alert alert-{{ message[1] }}">{{ message }}</div></strong>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    </p>
+
+    <nav>
+        <ul>
+            <li><a href="/welcome">Back to menu</a></li>
+        </ul>
+    </nav>   
+
+
+
+        <!-- Displaying literature table -->
+        <h2>literature</h2>
+        <table border="1">
+            <tr>
+                <th>id</th>
+                <th>title</th>
+                <th>author</th>
+                <th>keywords</th>
+                <th>raiting</th>
+                <th>availability</th>
+            </tr>
+            {% for item in literature %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.title }}</td>
+                <td>{{ item.author }}</td>
+                <td>{{ item.keywords }}</td>
+                <td>{{ item.raiting }}</td>
+                <td>{{ item.availability }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    
+    </body>
+
+    <!-- Displaying abbrevation table -->
+    <h2>abbrevations</h2>
+    <table border="1">
+        <tr>
+            <th>id</th>
+            <th>abbrevation</th>
+            <th>explanation</th>
+        </tr>
+        {% for abbrevation in abbrevations %}
+        <tr>
+            <td>{{ abbrevation.id }}</td>
+            <td>{{ abbrevation.abbrevation }}</td>
+            <td>{{ abbrevation.explanation }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Displaying stakeholders table -->
+    <h2>stakeholders</h2>
+    <table border="1">
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>type</th>
+            <th>description</th>
+            <th>contact</th>
+        </tr>
+        {% for stakeholder in stakeholders %}
+        <tr>
+            <td>{{ stakeholder.id }}</td>
+            <td>{{ stakeholder.name }}</td>
+            <td>{{ stakeholder.type }}</td>
+            <td>{{ stakeholder.description }}</td>
+            <td>{{ stakeholder.contact }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Displaying users table -->
+    <h2>users</h2>
+    <table border="1">
+        <tr>
+            <th>id</th>
+            <th>username</th>
+            <th>role</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.role }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+
+</html>

@@ -253,7 +253,50 @@ def searchbooks():
     
     #return the template with results
     return render_template("literature.html", title=title, author=author, keywords=keywords, rating=rating, availability=availability, results=results)
+
+@app.route('/admin', methods=["GET", "POST"])
+def admin():
+    #checks if the user is not an admin
+    username = session.get('username')
+    query = text(f"SELECT role FROM users WHERE username = :username")
+    userrole = db.session.execute(query, {"username": username}).scalar()
+
+    if userrole == 1:
+        return render_template("welcome.html")
     
+    #If the user is an admin, then proceeding to admin.html
+
+    if request.method == 'POST':
+        table_name = request.form.get("table")
+        row_id = request.form.get("id")
+
+        query0 = text(f"DELETE FROM {table_name} WHERE id = :row_id")
+        params = {"row_id": row_id}
+        db.session.execute(query0, params)
+        db.session.commit()
+
+        flash(f"Row with id = {row_id} removed succesfully from table {table_name}", "success")
+
+
+
+    query1 = "SELECT * FROM literature WHERE 1=1"
+    result1 = db.session.execute(text(query1))
+    literature = result1.fetchall()
+
+
+    query2 = "SELECT * FROM abbrevations WHERE 1=1"
+    result2 = db.session.execute(text(query2))
+    abbrevations = result2.fetchall()
+
+    query3 = "SELECT * FROM stakeholders WHERE 1=1"
+    result3 = db.session.execute(text(query3))
+    stakeholders = result3.fetchall()
+
+    query4 = "SELECT id, username, role FROM users WHERE 1=1;"
+    result4 = db.session.execute(text(query4))
+    users = result4.fetchall()
+    
+    return render_template("admin.html", abbrevations=abbrevations, literature=literature, stakeholders=stakeholders, users=users)
 
 @app.route("/discussions")
 def discussions():
