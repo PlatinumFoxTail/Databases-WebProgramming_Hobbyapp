@@ -40,25 +40,30 @@ In case of issues when trying to run the app locally, following info might be us
 
 I. General status of app:
 - Search abbrevations OK.
-- Search and add literature OK. NB! The keywords section should be added within {}
+- Search and add literature OK.
 - Search and add stakeholders OK.
 - Register and login OK.
 - Admin can remove data OK.
 
-II. Literature page improvement needs:
-- The accepted form of BCI literature search should be dipslayed in the search boxes in gray e.g. keywords as {keyword1, keyword2}
-- Some type of message should be displayed if Add literature is succesful or unsucessful or already added
-- Title size of BCI literature search as h2 and h1 as Literature search
-- Consider if have time to fine tune search function that can only add parts of the search items e.g. Brain computer*, only one keyword
+II. Security check
+- Check that security breaches are minimized e.g. SQL injection
 
-III. Stakeholder  page improvement needs:
+III. Literature page improvement needs:
+- The accepted form of BCI literature search should be dipslayed in the search boxes in gray e.g. "Enter word or part of word" for all except of Raiting which should be "Enter number between 1-5"
+- Some type of message should be displayed if Add literature is unsucessful or already added
+- Title size of BCI literature search as h2 and h1 as Literature search
+
+IV. Stakeholder  page improvement needs:
 - The accepted form of BCI stakeholder search should be dipslayed in the search boxes in gray
 - Some type of message should be displayed if Add stakeholder is succesful or unsucessful or already added
 - Title size of BCI literature search changed to BCI stakeholder search and title as h2 and h1 as Add BCI stakeholder 
 - Consider if have time to fine tune search function that can only add parts of the search items e.g. Device* in description
 - Make the box larger so can see options for type searches
 
-IV. Project scope revision
+V. App structure cleaning
+- e.g. divide items in app.py to db.py and routes.py
+
+VI. Project scope revision
 - It was noticed and decided togther with course assistant, that the original planned BCI discussion feature was too extensive to include into the project. So following feature was decided to leave out from the project:
 
 "The user can search and add comments to BCI related discussions e.g. Discussion topic: "BCI job openings in Finland" -> User1: "Can not find BCI companies in Finland. Any suggestions of companies based in Finland adjacent to BCI field?" -> User2: "You can try reaching out to comapny x, y, and z" -> User1: "I reached out to them both, and actually company y is about to initiate something in the field, so I will add it into the BCI stakeholder list""
