@@ -232,20 +232,20 @@ def searchbooks():
             params = {}
 
             if title:
-                query += " AND title = :title"
-                params["title"] = title
+                query += " AND LOWER(title) LIKE LOWER(:title)"
+                params["title"] = f"%{title.lower()}%"
             if author:
-                query += " AND author = :author"
-                params["author"] = author
+                query += " AND LOWER(author) LIKE LOWER(:author)"
+                params["author"] = f"%{author.lower()}%"
             if keywords:
-                query += " AND keywords = :keywords"
-                params["keywords"] = keywords
+                query += " AND LOWER(keywords) LIKE LOWER(:keywords)"
+                params["keywords"] = f"%{keywords.lower()}%"
             if rating:
                 query += " AND rating = :rating"
                 params["rating"] = rating
             if availability:
-                query += " AND availability = :availability"
-                params["availability"] = availability
+                query += " AND LOWER(availability) LIKE LOWER(:availability)"
+                params["availability"] = f"%{availability.lower()}%"
 
             #executing the SQL query
             result = db.session.execute(text(query), params)
