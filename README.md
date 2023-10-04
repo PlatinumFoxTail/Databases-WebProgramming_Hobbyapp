@@ -4,11 +4,11 @@ This app is related to the field of brain-computer interface, hereafter reffered
 
 The features of the app are:
 
-- The user can sign in and out and create user name and password
-- The user can search for meaning of some common BCI related abbrevations e.g. BMI = brain-machine interface
-- The user can search and add information of BCI stakeholders e.g. Stakeholder group = Company, Stakholder name = Neuralink, Stakeholder description = Developing implantable brain-computer devices, Stakeholder contact = https://neuralink.com/
-- The user can search and add BCI literature e.g. Title, Author, Pre-defined keywords, Rating, Availability
-- The admin can add/remove BCI abbrevations, stakeholders, literature, discussions, and users
+- The user can sign in and out and create user name and password and choose role as regular user or admin
+- The users can search for meaning of some common BCI related abbrevations e.g. BMI = brain-machine interface
+- The users can search and add information of BCI stakeholders e.g. Stakeholder group = Company, Stakholder name = Neuralink, Stakeholder description = Developing implantable brain-computer devices, Stakeholder contact = https://neuralink.com/
+- The users can search and add BCI literature e.g. Title, Author, Pre-defined keywords, Rating, Availability
+- The admin can additonally remove BCI abbrevations, stakeholders, literature, and users
 
 # How to run the app
 *Prerequisite*: A PostgreSQL instance running.
@@ -39,11 +39,11 @@ In case of issues when trying to run the app locally, following info might be us
 ## Status at Intermediate hand-in 24.9.23:
 
 I. General status of app:
-- Search abbrevationns OK.
+- Search abbrevations OK.
 - Search and add literature OK. NB! The keywords section should be added within {}
 - Search and add stakeholders OK.
-- Register and login OK
-- Admin rights still need to be added e.g. remove users.
+- Register and login OK.
+- Admin can remove data OK.
 
 II. Literature page improvement needs:
 - The accepted form of BCI literature search should be dipslayed in the search boxes in gray e.g. keywords as {keyword1, keyword2}
