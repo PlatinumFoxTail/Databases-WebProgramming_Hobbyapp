@@ -88,13 +88,14 @@ def welcome():
 
 @app.route("/abbrevations", methods=["GET", "POST"])
 def abbrevations():
-    #if session["csrf_token"] != request.form["csrf_token"]:
-        #abort(403)
 
     abbreviation = None
     explanation = None
 
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
+
         # Retrieve the abbreviation entered by the user
         abbreviation = request.form.get("abbreviation")
 
@@ -110,9 +111,6 @@ def abbrevations():
 #Adding stakeholder into stakeholder table
 @app.route("/stakeholders", methods=["GET", "POST"])
 def stakeholders():
-    #if session["csrf_token"] != request.form["csrf_token"]:
-        #abort(403)
-    #initializing results
     name = None
     type = None
     description = None
@@ -120,6 +118,8 @@ def stakeholders():
     results = None  
 
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
         if "name" in request.form and "type" in request.form and "description" in request.form and "contact" in request.form:
             #handling the form submission for adding a new literature item
             name = request.form.get("name")
@@ -144,9 +144,6 @@ def stakeholders():
 #searching stakeholder
 @app.route("/searchstakeholders", methods=["POST"])
 def searchstakeholders():
-    #if session["csrf_token"] != request.form["csrf_token"]:
-        #abort(403)
-    #initializing results
     name = None
     type = None
     description = None
@@ -154,7 +151,9 @@ def searchstakeholders():
     results = None
     
     if request.method == "POST":
-       if "name" in request.form or "type" in request.form or "description" in request.form or "contact" in request.form:
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
+        if "name" in request.form or "type" in request.form or "description" in request.form or "contact" in request.form:
             #handling the form submission for adding a new literature item
             name = request.form.get("name")
             type = request.form.get("type")
@@ -188,9 +187,6 @@ def searchstakeholders():
 #Adding literature into literature table
 @app.route("/literature", methods=["GET", "POST"])
 def literature():
-    #if session["csrf_token"] != request.form["csrf_token"]:
-        #abort(403)    
-    #initializing results
     title = None
     author = None
     keywords = None
@@ -199,6 +195,8 @@ def literature():
     results = None  
 
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
         if "title" in request.form and "author" in request.form and "keywords" in request.form and "rating" in request.form and "availability" in request.form:
             #handling the form submission for adding a new literature item
             title = request.form.get("title")
@@ -224,9 +222,6 @@ def literature():
 #searching literature
 @app.route("/searchbooks", methods=["POST"])
 def searchbooks():
-    #if session["csrf_token"] != request.form["csrf_token"]:
-        #abort(403)    
-    #initializing results
     title = None
     author = None
     keywords = None
@@ -235,6 +230,8 @@ def searchbooks():
     results = None
     
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
         if "title" in request.form or "author" in request.form or "keywords" in request.form or "rating" in request.form or "availability" in request.form:
             title = request.form.get("title")
             author = request.form.get("author")
@@ -271,9 +268,6 @@ def searchbooks():
 
 @app.route('/admin', methods=["GET", "POST"])
 def admin():
-    #if session["csrf_token"] != request.form["csrf_token"]:
-        #abort(403)
-    #checks if the user is not an admin
     username = session.get('username')
     query = text(f"SELECT role FROM users WHERE username = :username")
     userrole = db.session.execute(query, {"username": username}).scalar()
@@ -285,6 +279,8 @@ def admin():
     #If the user is an admin, then proceeding to admin.html
 
     if request.method == 'POST':
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
         table_name = request.form.get("table")
         row_id = request.form.get("id")
 

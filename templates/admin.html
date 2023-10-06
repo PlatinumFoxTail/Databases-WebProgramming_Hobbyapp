@@ -19,7 +19,7 @@
       <b> <strong> id:</strong><br>
       <input type="integer" name="id" id="id" class="input-box" placeholder="select id number from table" required></b><br>
       <input type="submit" value="Remove row"><br>
-      <!-- <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}"> -->
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>  
 
     <p>{% with messages = get_flashed_messages() %}
@@ -49,7 +49,7 @@
                 <th>title</th>
                 <th>author</th>
                 <th>keywords</th>
-                <th>raiting</th>
+                <th>rating</th>
                 <th>availability</th>
             </tr>
             {% for item in literature %}
@@ -58,7 +58,7 @@
                 <td>{{ item.title }}</td>
                 <td>{{ item.author }}</td>
                 <td>{{ item.keywords }}</td>
-                <td>{{ item.raiting }}</td>
+                <td>{{ item.rating }}</td>
                 <td>{{ item.availability }}</td>
             </tr>
             {% endfor %}

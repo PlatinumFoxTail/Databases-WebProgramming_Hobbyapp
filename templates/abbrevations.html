@@ -6,10 +6,10 @@
 <body>
     <h1>BCI abbreviation search</h1>
     <form method="POST" action="/abbrevations">
-        <label for="abbreviation">Enter abbreviation:</label>
-        <input type="text" id="abbreviation" name="abbreviation" required>
-        <button type="submit">Search</button>
-        <!-- <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}"> -->
+    <label for="abbreviation">Enter abbreviation:</label>
+    <input type="text" id="abbreviation" name="abbreviation" required>
+    <button type="submit">Search</button>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
     {% if abbreviation %}
     <p>Abbreviation: {{ abbreviation }}</p>
