@@ -44,6 +44,7 @@ I. General status of app:
 - Search and add stakeholders OK.
 - Register and login OK.
 - Admin can remove data OK.
+- UPDATE: requirments.txt
 
 II. Security check
 - Check that security breaches are minimized e.g. SQL injection
