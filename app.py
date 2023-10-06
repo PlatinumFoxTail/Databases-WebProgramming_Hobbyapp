@@ -165,17 +165,17 @@ def searchstakeholders():
             params = {}
 
             if name:
-                query += " AND name = :name"
-                params["name"] = name
+                query += " AND lower(name) LIKE LOWER(:name)"
+                params["name"] = f"%{name.lower()}%"
             if type:
-                query += " AND type = :type"
-                params["type"] = type
+                query += " AND LOWER(type) LIKE LOWER(:type)"
+                params["type"] = f"%{type.lower()}%"
             if description:
-                query += " AND description = :description"
-                params["description"] = description
+                query += " AND LOWER(description) LIKE LOWER(:description)"
+                params["description"] = f"%{description.lower()}%"
             if contact:
-                query += " AND contact = :contact"
-                params["contact"] = contact
+                query += " AND LOWER(contact) LIKE LOWER(:contact)"
+                params["contact"] = f"%{contact.lower()}%"
 
             #executing the SQL query
             result = db.session.execute(text(query), params)

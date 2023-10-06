@@ -5,22 +5,22 @@
 </head>
 <body>
     <!-- Search Form -->
-    <h2>Search Stakeholder</h2>
+    <h2>Search BCI stakeholder</h2>
     <form method="POST" action="/searchstakeholders">
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name">
+        <input type="text" id="name" name="name" placeholder="Enter word or part of word">
         <br>
 
         <label for="type">Type:</label>
-        <input type="text" id="type" name="type">
+        <input type="text" id="type" name="type" placeholder="Enter word or part of word">
         <br>
 
         <label for="description">Description:</label>
-        <input type="text" id="description" name="description">
+        <input type="text" id="description" name="description" placeholder="Enter word or part of word">
         <br>
 
         <label for="contact">Contact:</label>
-        <input type="text" id="contact" name="contact">
+        <input type="text" id="contact" name="contact" placeholder="Enter word or part of word">
         <br>
 
         <button type="submit">Search</button>
@@ -29,7 +29,7 @@
 
     <!-- Add Stakeholder Form -->
     <form method="POST" action="/stakeholders">
-        <h2>Add Stakeholder</h2>
+        <h2>Add BCI stakeholder</h2>
         <input type="text" name="name" placeholder="Name" required><br>
         <input type="text" name="type" placeholder="Type: Company/Non-profit/NGO/Government" required><br>
         <input type="text" name="description" placeholder="Description" required><br>
@@ -38,7 +38,19 @@
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
 
-     <!-- Display Literature Results -->
+    <!-- Display if Stakeholder addtion succesful -->
+    <p>{% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for message in messages %}
+            <strong><div class="alert alert-{{ message[1] }}">{{ message }}</div></strong>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    </p> 
+    
+    <!-- Display Literature Results -->
     
      {% if results %}
      <h2>Results</h2>
