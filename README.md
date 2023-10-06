@@ -45,9 +45,7 @@ I. General status of app:
 - Register and login OK.
 - Admin can remove data OK.
 - UPDATE: requirments.txt
-
-II. Security check
-- Check that security breaches are minimized e.g. SQL injection
+- Consider to change PRIMARY KEY correctly for stakeholders, users, abbrevations despite seems to work as is.
 
 III. Literature page improvement needs:
 - The accepted form of BCI literature search should be dipslayed in the search boxes in gray e.g. "Enter word or part of word" for all except of Raiting which should be "Enter number between 1-5"
