@@ -47,11 +47,9 @@ I. General status of app:
 
 II. Literature page improvement needs:
 - Some type of message should be displayed if Add literature is unsucessful or already added
-- Make the box larger so can see options for type searches
 
 III. Stakeholder  page improvement needs:
 - Some type of message should be displayed if Add stakeholder is unsucessful or already added
-- Make the box larger so can see options for type searches
 
 IV. App structure cleaning
 - e.g. divide items in app.py to db.py and routes.py
