@@ -28,6 +28,7 @@
         <br>
 
         <button type="submit">Search</button>
+        <!-- <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}"> -->
     </form>
 
     <!-- Add Literature Form -->
@@ -39,6 +40,7 @@
         <input type="text" name="rating" placeholder="Rating" required><br>
         <input type="text" name="availability" placeholder="Availability" required><br>
         <button type="submit">Add</button>
+        <!-- <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}"> -->
     </form>
 
     <p>{% with messages = get_flashed_messages() %}

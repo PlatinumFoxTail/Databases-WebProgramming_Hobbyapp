@@ -9,6 +9,7 @@
         <label for="abbreviation">Enter abbreviation:</label>
         <input type="text" id="abbreviation" name="abbreviation" required>
         <button type="submit">Search</button>
+        <!-- <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}"> -->
     </form>
     {% if abbreviation %}
     <p>Abbreviation: {{ abbreviation }}</p>

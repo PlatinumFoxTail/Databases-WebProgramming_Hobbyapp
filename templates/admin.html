@@ -14,11 +14,13 @@
 
     <!-- Selecting row to be removed -->
     <form action="/admin" method="post">
-    <b> <strong> Table:</strong><br> 
-    <input type="text" name="table" id="table" class="input-box" placeholder="select table name from below" required></b><br>
-    <b> <strong> id:</strong><br>
-    <input type="integer" name="id" id="id" class="input-box" placeholder="select id number from table" required></b><br>
-    <input type="submit" value="Remove row"><br>
+      <b> <strong> Table:</strong><br> 
+      <input type="text" name="table" id="table" class="input-box" placeholder="select table name from below" required></b><br>
+      <b> <strong> id:</strong><br>
+      <input type="integer" name="id" id="id" class="input-box" placeholder="select id number from table" required></b><br>
+      <input type="submit" value="Remove row"><br>
+      <!-- <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}"> -->
+    </form>  
 
     <p>{% with messages = get_flashed_messages() %}
       {% if messages %}

@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, flash, redirect, url_for, session
+from flask import Flask, render_template, request, flash, redirect, url_for, session, abort
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
 from os import getenv
 from sqlalchemy import or_
 from werkzeug.security import check_password_hash, generate_password_hash
+import secrets
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
@@ -54,6 +55,9 @@ def login():
     username = request.form["username"]
     password = request.form["password"]
 
+    # adding random csrf_token to decrease csrf vulnerabilities
+    session["csrf_token"] = secrets.token_hex(16)
+
     # Haetaan käyttäjä tietokannasta
     sql = text("SELECT id, password FROM users WHERE username=:username")
     result = db.session.execute(sql, {"username":username})
@@ -84,6 +88,9 @@ def welcome():
 
 @app.route("/abbrevations", methods=["GET", "POST"])
 def abbrevations():
+    #if session["csrf_token"] != request.form["csrf_token"]:
+        #abort(403)
+
     abbreviation = None
     explanation = None
 
@@ -103,6 +110,8 @@ def abbrevations():
 #Adding stakeholder into stakeholder table
 @app.route("/stakeholders", methods=["GET", "POST"])
 def stakeholders():
+    #if session["csrf_token"] != request.form["csrf_token"]:
+        #abort(403)
     #initializing results
     name = None
     type = None
@@ -135,6 +144,8 @@ def stakeholders():
 #searching stakeholder
 @app.route("/searchstakeholders", methods=["POST"])
 def searchstakeholders():
+    #if session["csrf_token"] != request.form["csrf_token"]:
+        #abort(403)
     #initializing results
     name = None
     type = None
@@ -177,6 +188,8 @@ def searchstakeholders():
 #Adding literature into literature table
 @app.route("/literature", methods=["GET", "POST"])
 def literature():
+    #if session["csrf_token"] != request.form["csrf_token"]:
+        #abort(403)    
     #initializing results
     title = None
     author = None
@@ -211,6 +224,8 @@ def literature():
 #searching literature
 @app.route("/searchbooks", methods=["POST"])
 def searchbooks():
+    #if session["csrf_token"] != request.form["csrf_token"]:
+        #abort(403)    
     #initializing results
     title = None
     author = None
@@ -256,6 +271,8 @@ def searchbooks():
 
 @app.route('/admin', methods=["GET", "POST"])
 def admin():
+    #if session["csrf_token"] != request.form["csrf_token"]:
+        #abort(403)
     #checks if the user is not an admin
     username = session.get('username')
     query = text(f"SELECT role FROM users WHERE username = :username")
