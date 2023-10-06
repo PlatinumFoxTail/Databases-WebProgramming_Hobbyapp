@@ -1,5 +1,4 @@
-<html>
-<body>
+
 <h1>Welcome to BCI's little helper</h1>
 <nav>
     <ul>
@@ -10,5 +9,15 @@
         <li><a href="/logout">Sign out</a></li>
     </ul>
 </nav>
-</body>
-</html>
+
+<p>{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="flash-messages">
+      {% for message in messages %}
+        <strong><div class="alert alert-{{ message[1] }}">{{ message }}</div></strong>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+</p>
+

@@ -262,6 +262,7 @@ def admin():
     userrole = db.session.execute(query, {"username": username}).scalar()
 
     if userrole == 1:
+        flash("No admin rights to enter Admin page", "success")
         return render_template("welcome.html")
     
     #If the user is an admin, then proceeding to admin.html
@@ -297,7 +298,3 @@ def admin():
     users = result4.fetchall()
     
     return render_template("admin.html", abbrevations=abbrevations, literature=literature, stakeholders=stakeholders, users=users)
-
-@app.route("/discussions")
-def discussions():
-    return "WIP BCI discussions"
