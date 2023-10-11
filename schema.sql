@@ -5,3 +5,5 @@ CREATE TABLE abbrevations (id SERIAL PRIMARY KEY, abbrevation TEXT, explanation 
 CREATE TABLE literature (id SERIAL PRIMARY KEY, title TEXT, author TEXT, keywords TEXT, rating INTEGER, availability TEXT);
 
 CREATE TABLE stakeholders (id SERIAL PRIMARY KEY, name TEXT, type TEXT, description TEXT, contact TEXT);
+
+CREATE TABLE events (id SERIAL PRIMARY KEY, name TEXT, description TEXT, country TEXT, time DATE, info TEXT);

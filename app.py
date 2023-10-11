@@ -309,5 +309,105 @@ def admin():
     query4 = "SELECT id, username, role FROM users WHERE 1=1;"
     result4 = db.session.execute(text(query4))
     users = result4.fetchall()
+
+    query5 = "SELECT id, name, description, country, time, info FROM events WHERE 1=1;"
+    result5 = db.session.execute(text(query5))
+    events = result5.fetchall()
     
-    return render_template("admin.html", abbrevations=abbrevations, literature=literature, stakeholders=stakeholders, users=users)
+    return render_template("admin.html", abbrevations=abbrevations, literature=literature, stakeholders=stakeholders, users=users, events=events)
+
+#Adding events into events table
+@app.route("/events", methods=["GET", "POST"])
+def events():
+    name = None
+    description = None
+    country = None
+    time = None
+    info = None
+    results = None  
+
+    if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
+        if "name" in request.form and "description" in request.form and "country" in request.form and "time" in request.form and "info" in request.form:
+            #handling the form submission for adding a new event item
+            name = request.form.get("name")
+            description = request.form.get("description")
+            country = request.form.get("country")
+            time = request.form.get("time")
+            info = request.form.get("info")
+
+            #inserting the new event item into the database
+            db.session.execute(
+                text("INSERT INTO events (name, description, country, time, info) VALUES (:name, :description, :country, :time, :info)"),
+                {"name": name, "description": description, "country": country, "time": time, "info": info}
+            )
+            db.session.commit()
+            flash("Event item added successfully", "success")
+
+            # Redirect to the same route after adding
+            return redirect(url_for("events"))
+
+    #if the request method is "GET," return a response here (e.g., render a template or redirect)
+    return render_template("events.html", name=name, description=description, country=country, time=time, info=info, results=results)
+
+#searching events
+@app.route("/searchevents", methods=["POST"])
+def searchevents():
+    name = None
+    description = None
+    country = None
+    time = None
+    info = None
+    results = None
+    
+    if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
+        if "name" in request.form or "description" in request.form or "country" in request.form or "time" in request.form or "info" in request.form:
+            #handling the form submission for searching an event item
+            name = request.form.get("name")
+            description = request.form.get("description")
+            country = request.form.get("country")
+            time = request.form.get("time")
+            info = request.form.get("info")
+            
+            #building the SQL query based on the provided fields
+            query = "SELECT * FROM events WHERE 1=1"
+            params = {}
+
+            if name:
+                query += " AND lower(name) LIKE LOWER(:name)"
+                params["name"] = f"%{name.lower()}%"
+            if description:
+                query += " AND LOWER(description) LIKE LOWER(:description)"
+                params["description"] = f"%{description.lower()}%"
+            if country:
+                query += " AND LOWER(country) LIKE LOWER(:country)"
+                params["country"] = f"%{country.lower()}%"
+            if time:
+                if len(time) == 4:  # Input in YYYY format
+                    query += " AND EXTRACT(YEAR FROM time) = :year"
+                    params["year"] = int(time)
+                elif len(time) == 7:  # Input in YYYY-MM format 
+                    query += " AND EXTRACT(YEAR FROM time) = :year AND EXTRACT(MONTH FROM time) = :month"
+                    year, month = map(int, time.split("-"))
+                    params["year"] = year
+                    params["month"] = month
+                elif len(time) == 10:  # Input in YYYY-MM-DD format
+                    query += " AND time = :time"
+                    params["time"] = time
+                else:
+                    # Handle invalid input here, if necessary
+                    pass
+
+            if info:
+                query += " AND LOWER(info) LIKE LOWER(:info)"
+                params["info"] = f"%{info.lower()}%"
+
+            #executing the SQL query
+            result = db.session.execute(text(query), params)
+            results = result.fetchall()
+    
+    #return the template with results
+    return render_template("events.html", name=name, description=description, country=country, time=time, info=info, results=results)

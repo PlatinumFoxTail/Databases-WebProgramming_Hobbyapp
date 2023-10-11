@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BCI events</title>
+</head>
+<body>
+    <!-- Search Form -->
+    <h2>Search BCI event</h2>
+    <form method="POST" action="/searchevents">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter word or part of word or leave blank" size="50">
+        <br>
+
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description" placeholder="Enter word or part of word or leave blank" size="50">
+        <br>
+
+        <label for="type">Country:</label>
+        <input type="text" id="country" name="country" placeholder="Enter word or part of word or leave blank" size="50">
+        <br>
+
+        <label for="time">Time:</label>
+        <input type="text" id="time" name="time" placeholder="Enter time as yyyy, yyyy-mm or yyyy-mm-dd" size="50">
+        <br>
+
+        <label for="info">Info:</label>
+        <input type="text" id="info" name="info" placeholder="Enter word or part of word or leave blank" size="50">
+        <br>
+
+        <button type="submit">Search</button>
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    </form>
+
+    <!-- Add Stakeholder Form -->
+    <form method="POST" action="/events">
+        <h2>Add BCI event</h2>
+        <input type="text" name="name" placeholder="Write event name" required size="50"><br>
+        <input type="text" name="description" placeholder="Write description e.g. event description" required size="50"><br>
+        <input type="text" name="country" placeholder="Write country where event occuring" required size="55"><br>
+        <input type="date" name="time" placeholder="Select date of event" required size="50"><br>
+        <input type="text" name="info" placeholder="Write info details e.g. web-page" required size="50"><br>
+        <button type="submit">Add</button>
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    </form>
+
+    <!-- Display if Event addtion succesful -->
+    <p>{% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for message in messages %}
+            <strong><div class="alert alert-{{ message[1] }}">{{ message }}</div></strong>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    </p> 
+    
+    <!-- Display Event Results -->
+    
+     {% if results %}
+     <h2>Results</h2>
+     <ul>
+         {% for item in results %}
+             <li>
+                 <strong>Name:</strong> {{ item.name }}<br>
+                 <strong>Description:</strong> {{ item.description }}<br>
+                 <strong>Country:</strong> {{ item.country }}<br>
+                 <strong>Time:</strong> {{ item.time }}<br>
+                 <strong>Info:</strong> {{ item.info }}<br>
+             </li>
+         {% endfor %}
+     </ul>
+     {% endif %}
+
+
+<nav>
+    <ul>
+        <li><a href="/welcome">Back to menu</a></li>
+    </ul>
+</nav>
+
+</body>
+</html>
