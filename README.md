@@ -8,7 +8,8 @@ The features of the app are:
 - The users can search for meaning of some common BCI related abbrevations e.g. BMI = brain-machine interface
 - The users can search and add information of BCI stakeholders e.g. Stakeholder group = Company, Stakholder name = Neuralink, Stakeholder description = Developing implantable brain-computer devices, Stakeholder contact = https://neuralink.com/
 - The users can search and add BCI literature e.g. Title, Author, Pre-defined keywords, Rating, Availability
-- The admin can additonally remove BCI abbrevations, stakeholders, literature, and users
+- The users can search and add BCI events e.g. Name, Description, Country, Time, Info.
+- The admin can additonally remove BCI abbrevations, stakeholders, literature, events and users
 
 # How to run the app
 *Prerequisite*: A PostgreSQL instance running.
@@ -42,19 +43,17 @@ I. General status of app:
 - Search abbrevations OK.
 - Search and add literature OK.
 - Search and add stakeholders OK.
+- Search and add events OK.
 - Register and login OK.
 - Admin can remove data OK.
 
-II. Literature page improvement needs:
-- Some type of message should be displayed if Add literature is unsucessful or already added
+II. Literature, Stakeholders, Eventspage improvement needs:
+- Some type of message should be displayed if Add is unsucessful or already added as well if a result search is empty
 
-III. Stakeholder  page improvement needs:
-- Some type of message should be displayed if Add stakeholder is unsucessful or already added
-
-IV. App structure cleaning
+III. App structure cleaning
 - e.g. divide items in app.py to db.py and routes.py
 
-V. Project scope revision
+IV. Project scope revision
 - It was noticed and decided togther with course assistant, that the original planned BCI discussion feature was too extensive to include into the project. So following feature was decided to leave out from the project: 
 
 "The user can search and add comments to BCI related discussions e.g. Discussion topic: "BCI job openings in Finland" -> User1: "Can not find BCI companies in Finland. Any suggestions of companies based in Finland adjacent to BCI field?" -> User2: "You can try reaching out to comapny x, y, and z" -> User1: "I reached out to them both, and actually company y is about to initiate something in the field, so I will add it into the BCI stakeholder list""
