@@ -39,7 +39,7 @@ def create_user():
         if password1 != password2:
             return render_template("error.html", message="Entered passwords do not match")
 
-        # Hahmotellaan salasanan hajautusarvo ja tallennetaan se tietokantaan
+        # hashing password and inserting it to the database
         hash_value = generate_password_hash(password1)
         sql = text("INSERT INTO users (username, password, role) VALUES (:username, :password, :role)")
         db.session.execute(sql, {"username":username, "password":hash_value, "role": role})
@@ -58,23 +58,23 @@ def login():
     # adding random csrf_token to decrease csrf vulnerabilities
     session["csrf_token"] = secrets.token_hex(16)
 
-    # Haetaan käyttäjä tietokannasta
+    # fetching user from database
     sql = text("SELECT id, password FROM users WHERE username=:username")
     result = db.session.execute(sql, {"username":username})
     user = result.fetchone()
 
     if not user:
-        # Käyttäjää ei löytynyt, voit lisätä tähän sopivan virheilmoituksen
+        # username not found, returning error message
         return "Invalid username"
 
     stored_hash = user.password
 
     if check_password_hash(stored_hash, password):
-        # Salasana on oikein, voit suorittaa kirjautumisen
+        # password correct, sign in can proceed
         session["username"] = username
         return redirect("/welcome")
     else:
-        # Väärä salasana, voit lisätä tähän sopivan virheilmoituksen
+        # wrong password, returning error message
         return "Invalid password"
 
 @app.route("/logout")
@@ -121,7 +121,7 @@ def stakeholders():
         if session["csrf_token"] != request.form["csrf_token"]:
             abort(403)
         if "name" in request.form and "type" in request.form and "description" in request.form and "contact" in request.form:
-            #handling the form submission for adding a new literature item
+            #handling the form submission for adding a new stakeholder item
             name = request.form.get("name")
             type = request.form.get("type")
             description = request.form.get("description")
@@ -154,7 +154,7 @@ def searchstakeholders():
         if session["csrf_token"] != request.form["csrf_token"]:
             abort(403)
         if "name" in request.form or "type" in request.form or "description" in request.form or "contact" in request.form:
-            #handling the form submission for adding a new literature item
+            #handling the form submission for searching stakeholder item
             name = request.form.get("name")
             type = request.form.get("type")
             description = request.form.get("description")
@@ -233,6 +233,7 @@ def searchbooks():
         if session["csrf_token"] != request.form["csrf_token"]:
             abort(403)
         if "title" in request.form or "author" in request.form or "keywords" in request.form or "rating" in request.form or "availability" in request.form:
+            #handling the form submission for searching literature item
             title = request.form.get("title")
             author = request.form.get("author")
             keywords = request.form.get("keywords")
@@ -281,6 +282,7 @@ def admin():
     if request.method == 'POST':
         if session["csrf_token"] != request.form["csrf_token"]:
             abort(403)
+        #removing selected rows from selected table
         table_name = request.form.get("table")
         row_id = request.form.get("id")
 
