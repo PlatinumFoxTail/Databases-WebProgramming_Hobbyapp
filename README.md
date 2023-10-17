@@ -37,7 +37,7 @@ flask run
 ```
 In case of issues when trying to run the app locally, following info might be useful: https://hy-tsoha.github.io/materiaali/aikataulu/#huomio-flyiosta
 
-## Status at Intermediate hand-in 8.9.23:
+## Status at Final hand-in 22.10.23:
 
 I. General status of app:
 - Search abbrevations OK.
@@ -47,10 +47,7 @@ I. General status of app:
 - Register and login OK.
 - Admin can remove data OK.
 
-II. Literature, Stakeholders, Events page improvement needs:
-- Some type of message should be displayed if Add is unsucessful or already added as well if a result search is empty
-
-III. Project scope revision
+II. Project scope revision
 - It was noticed and decided togther with course assistant, that the original planned BCI discussion feature was too extensive to include into the project. So following feature was decided to leave out from the project: 
 
 "The user can search and add comments to BCI related discussions e.g. Discussion topic: "BCI job openings in Finland" -> User1: "Can not find BCI companies in Finland. Any suggestions of companies based in Finland adjacent to BCI field?" -> User2: "You can try reaching out to comapny x, y, and z" -> User1: "I reached out to them both, and actually company y is about to initiate something in the field, so I will add it into the BCI stakeholder list""
