@@ -1,24 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<h1>Welcome to BCI's little helper</h1>
-<nav>
-    <ul>
-        <li><a href="/abbrevations">Search BCI abbrevations</a></li>
-        <li><a href="/stakeholders">Search and add BCI stakeholders</a></li>
-        <li><a href="/literature">Search and add BCI literature</a></li>
-        <li><a href="/events">Search and add BCI events</a></li>
-        <li><a href="/admin">Admin page for removing data</a></li><b>NB! Access only for admins</b>
-        <li><a href="/logout">Sign out</a></li>
-    </ul>
-</nav>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to BCI's little helper</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        .content-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 0 100px;
+        }
 
-<p>{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <div class="flash-messages">
-      {% for message in messages %}
-        <strong><div class="alert alert-{{ message[1] }}">{{ message }}</div></strong>
-      {% endfor %}
+        .square {
+            width: 450px;
+            height: 450px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+            background-color: transparent;
+        }
+
+        .square img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .square a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .logout-link {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content-container">
+        <h1 class="mb-4">Welcome to BCI's little helper</h1>
+        <p class="text-center mb-4">In the BCI's little helper application you can search and add Brain-computer interface (BCI) related items by clicking the links below. If you are an admin, you also can access the Admin link.</p>
+        <div class="row justify-content-center">
+            <div class="col-sm-2 square">
+                <a href="/abbrevations"><img src="{{ url_for('static', filename='abbrevations-image.jpg') }}" alt="Abbrevations"></a>
+                <a href="/abbrevations">Abbrevations</a>
+            </div>
+            <div class="col-sm-2 square">
+                <a href="/stakeholders"><img src="{{ url_for('static', filename='stakeholders-image.jpg') }}" alt="Stakeholders"></a>
+                <a href="/stakeholders">Stakeholders</a>
+            </div>
+            <div class="col-sm-2 square">
+                <a href="/literature"><img src="{{ url_for('static', filename='literature-image.jpg') }}" alt="Literature"></a>
+                <a href="/literature">Literature</a>
+            </div>
+            <div class="col-sm-2 square">
+                <a href="/events"><img src="{{ url_for('static', filename='events-image.jpg') }}" alt="Events"></a>
+                <a href="/events">Events</a>
+            </div>
+            <div class="col-sm-2 square">
+                <a href="/admin"><img src="{{ url_for('static', filename='admin-image.jpg') }}" alt="Admin"></a>
+                <a href="/admin">Admin</a>
+            </div>
+        </div>
+        <div class="flash-messages mt-4">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <strong>
+                <div class="alert alert-{{ message[1] }}">{{ message }}</div>
+            </strong>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
     </div>
-  {% endif %}
-{% endwith %}
-</p>
 
+    <a href="/logout" class="logout-link">Sign out</a>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>
