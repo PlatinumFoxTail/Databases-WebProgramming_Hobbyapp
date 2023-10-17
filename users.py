@@ -1,4 +1,3 @@
-
 from db import db
 from flask import session 
 from sqlalchemy.sql import text
@@ -20,18 +19,18 @@ def create_user(username: str, password: str, role: int):
     
     return login(username, password)
 
-def login(username: str, password: str): #ADDITION
+def login(username: str, password: str): 
     # fetching user from database
     sql = text("SELECT id, password FROM users WHERE username=:username")
     result = db.session.execute(sql, {"username":username})
     user = result.fetchone()
 
     if not user:
-        return False #MODIFIED
+        return False 
     
     stored_hash = user.password
     if not check_password_hash(stored_hash,password):
-        return False #MODIFIED
+        return False 
     
     #password correct, sign in can proceed
     session["username"] = username
@@ -39,17 +38,17 @@ def login(username: str, password: str): #ADDITION
     #adding random csrf_token to decrease csrf vulnerabilities
     session["csrf_token"] = secrets.token_hex(16)
 
-    return True #MODIFIED
+    return True 
 
-def user_exists(username: str): #ADDITION
+def user_exists(username: str): 
         sql = text("SELECT username from users WHERE username=:username")
         result = db.session.execute(sql, {"username": username})
         existing_user = result.fetchone()
 
-        if existing_user: #ADDITION
-             return True #ADDITON
-        else: #ADDITION
-             return False #ADDITION 
+        if existing_user: 
+             return True 
+        else: 
+             return False 
 
 def check_role(username:str):
     query = text(f"SELECT role FROM users WHERE username = :username")
