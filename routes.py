@@ -7,6 +7,7 @@ import users
 def index():
     return render_template("index.html")
 
+# creating user
 @app.route("/register", methods=["GET", "POST"])
 def create_user():
 
@@ -35,6 +36,7 @@ def create_user():
     
     return render_template("register.html")
 
+# logging in
 @app.route("/login",methods=["GET", "POST"]) 
 def login():
     if request.method == "GET": 
@@ -58,6 +60,7 @@ def logout():
 def welcome():
     return render_template("welcome.html")
 
+# searching abbrevation
 @app.route("/abbrevations", methods=["GET", "POST"])
 def abbrevations():
 
@@ -74,8 +77,12 @@ def abbrevations():
         # Retrive the corresponding explanation to the entered abbrevation
         explanation = dataprocessing.search_abbrevation(abbreviation)
 
+        if not explanation:
+            flash(f"No matches found for {abbreviation}", "success")
+
     return render_template("abbrevations.html", abbreviation=abbreviation, explanation=explanation)
 
+# adding stakeholder
 @app.route("/stakeholders", methods=["GET", "POST"])
 def stakeholders():
     name = None
@@ -95,13 +102,17 @@ def stakeholders():
             type = request.form.get("type")
             description = request.form.get("description")
             contact = request.form.get("contact")
+            
+            # checking if the stakeholder already added
+            check = dataprocessing.search_stakeholders(name, type, description, contact)
 
-            addition = dataprocessing.add_stakeholder(name, type, description, contact)
-
-            if addition == True:
+            # if stakeholder not already added, adding stakeholder
+            if not check:
+                dataprocessing.add_stakeholder(name, type, description, contact)
                 flash("Stakeholder item added successfully", "success")
+            
             else:
-                flash("Please try again, stakeholder not added", "success")
+                flash("Stakholder not added, since already in database", "success")
 
             # Redirect to the same route after adding
             return redirect(url_for("stakeholders"))
@@ -109,6 +120,7 @@ def stakeholders():
     #if the request method is "GET," return a response here (e.g., render a template or redirect)
     return render_template("stakeholders.html", name=name, type=type, description=description, contact=contact, results=results)
 
+#searching stakeholder
 @app.route("/searchstakeholders", methods=["POST"])
 def searchstakeholders():
     name = None
@@ -128,11 +140,12 @@ def searchstakeholders():
 
             results = dataprocessing.search_stakeholders(name, type, description, contact)
 
-            if results == None:
-                flash("No results, please try again", "success")
+            if not results:
+                flash(f"No matches found for search", "success")
         
     return render_template("stakeholders.html", name=name, type=type, description=description, contact=contact, results=results)
 
+# adding literature
 @app.route("/literature", methods=["GET", "POST"])
 def literature():
     title = None
@@ -153,12 +166,13 @@ def literature():
             rating = request.form.get("rating")
             availability = request.form.get("availability")
 
-            addition = dataprocessing.add_literature(title, author, keywords, rating, availability)
+            check = dataprocessing.search_literature(title, author, keywords, rating, availability)
             
-            if addition == True:
+            if not check:
+                dataprocessing.add_literature(title, author, keywords, rating, availability)
                 flash("Literature item added successfully", "success")
             else:
-                flash("Please try again, literature not added", "success")
+                flash("Literature not added, since already in database", "success")
 
             # Redirect to the same route after adding
             return redirect(url_for("literature"))
@@ -166,6 +180,7 @@ def literature():
     #if the request method is "GET," return a response here (e.g., render a template or redirect)
     return render_template("literature.html", title=title, author=author, keywords=keywords, rating=rating, availability=availability, results=results)
 
+# searching literature
 @app.route("/searchbooks", methods=["POST"])
 def searchbooks():
     title = None
@@ -188,9 +203,13 @@ def searchbooks():
 
             results = dataprocessing.search_literature(title, author, keywords, rating, availability)
 
+            if not results:
+                flash(f"No matches found for search", "success")
+
     #return the template with results
     return render_template("literature.html", title=title, author=author, keywords=keywords, rating=rating, availability=availability, results=results)
 
+# adding event
 @app.route("/events", methods=["GET", "POST"])
 def events():
     name = None
@@ -211,12 +230,13 @@ def events():
             time = request.form.get("time")
             info = request.form.get("info")
             
-            addition = dataprocessing.add_event(name, description, country, time, info)
+            check = dataprocessing.search_events(name, description, country, time, info)
 
-            if addition == True:
+            if not check:
+                dataprocessing.add_event(name, description, country, time, info)
                 flash("Event item added successfully", "success")
             else:
-                flash("Please try again, event not added", "success")
+                flash("Event not added, since already in database", "success")
 
             # Redirect to the same route after adding
             return redirect(url_for("events"))
@@ -224,6 +244,7 @@ def events():
     #if the request method is "GET," return a response here (e.g., render a template or redirect)
     return render_template("events.html", name=name, description=description, country=country, time=time, info=info, results=results)
 
+# searching event
 @app.route("/searchevents", methods=["POST"])
 def searchevents():
     name = None
@@ -246,9 +267,13 @@ def searchevents():
 
             results = dataprocessing.search_events(name, description, country, time, info)
 
+            if not results:
+                flash(f"No matches found for search", "success")
+                
     #return the template with results
     return render_template("events.html", name=name, description=description, country=country, time=time, info=info, results=results)
 
+# admin removal of data
 @app.route('/admin', methods=["GET", "POST"])
 def admin():
     username = session.get('username')
