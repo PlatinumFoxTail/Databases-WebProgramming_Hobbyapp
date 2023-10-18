@@ -6,143 +6,182 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+        }
+        .table-container {
+            margin-top: 20px;
+        }
+        .menu-link {
+            position: absolute;
+            top: 30px;
+            right: 100px;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Admin Panel</h1>
-    <p>Here you can remove rows from the tables below, by typing Table name and and number of that id for the row of the table you want to remove</p>
+    <div class="container">
+        <h1 class="mt-5">Admin Panel</h1>
+        <p>Here you can remove rows from the tables below, by typing Table name and the number of that id for the row of the table you want to remove</p>
 
-    <!-- Selecting row to be removed -->
-    <form action="/admin" method="post">
-      <b> <strong> Table:</strong><br> 
-      <input type="text" name="table" id="table" class="input-box" placeholder="select table name from below" required></b><br>
-      <b> <strong> id:</strong><br>
-      <input type="integer" name="id" id="id" class="input-box" placeholder="select id number from table" required></b><br>
-      <input type="submit" value="Remove row"><br>
-      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-    </form>  
+        <!-- Selecting row to be removed -->
+        <form action="/admin" method="post" class="mt-3">
+            <div class="form-group">
+                <label for="table"><strong>Table:</strong></label>
+                <input type="text" name="table" id="table" class="form-control" placeholder="Select table name from below"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="id"><strong>ID:</strong></label>
+                <input type="number" name="id" id="id" class="form-control" placeholder="Select id number from table"
+                    required>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Remove row">
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        </form>
 
-    <p>{% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <div class="flash-messages">
-          {% for message in messages %}
-            <strong><div class="alert alert-{{ message[1] }}">{{ message }}</div></strong>
-          {% endfor %}
-        </div>
-      {% endif %}
-    {% endwith %}
-    </p>
-
-    <nav>
-        <ul>
-            <li><a href="/welcome">Back to menu</a></li>
-        </ul>
-    </nav>   
-
-
-
-        <!-- Displaying literature table -->
-        <h2>literature</h2>
-        <table border="1">
-            <tr>
-                <th>id</th>
-                <th>title</th>
-                <th>author</th>
-                <th>keywords</th>
-                <th>rating</th>
-                <th>availability</th>
-            </tr>
-            {% for item in literature %}
-            <tr>
-                <td>{{ item.id }}</td>
-                <td>{{ item.title }}</td>
-                <td>{{ item.author }}</td>
-                <td>{{ item.keywords }}</td>
-                <td>{{ item.rating }}</td>
-                <td>{{ item.availability }}</td>
-            </tr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="flash-messages mt-3">
+            {% for message in messages %}
+            <div class="alert alert-{{ message[1] }}">
+                <strong>{{ message }}</strong>
+            </div>
             {% endfor %}
-        </table>
-    
-    </body>
+        </div>
+        {% endif %}
+        {% endwith %}
 
-    <!-- Displaying abbrevation table -->
-    <h2>abbrevations</h2>
-    <table border="1">
-        <tr>
-            <th>id</th>
-            <th>abbrevation</th>
-            <th>explanation</th>
-        </tr>
-        {% for abbrevation in abbrevations %}
-        <tr>
-            <td>{{ abbrevation.id }}</td>
-            <td>{{ abbrevation.abbrevation }}</td>
-            <td>{{ abbrevation.explanation }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+        <div class="table-container mt-4">
+            <!-- Displaying literature table -->
+            <h2>literature</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Keywords</th>
+                        <th>Rating</th>
+                        <th>Availability</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in literature %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.author }}</td>
+                        <td>{{ item.keywords }}</td>
+                        <td>{{ item.rating }}</td>
+                        <td>{{ item.availability }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 
-    <!-- Displaying stakeholders table -->
-    <h2>stakeholders</h2>
-    <table border="1">
-        <tr>
-            <th>id</th>
-            <th>name</th>
-            <th>type</th>
-            <th>description</th>
-            <th>contact</th>
-        </tr>
-        {% for stakeholder in stakeholders %}
-        <tr>
-            <td>{{ stakeholder.id }}</td>
-            <td>{{ stakeholder.name }}</td>
-            <td>{{ stakeholder.type }}</td>
-            <td>{{ stakeholder.description }}</td>
-            <td>{{ stakeholder.contact }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+            <!-- Displaying abbrevation table -->
+            <h2>abbrevations</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>abbrevation</th>
+                        <th>explanation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for abbrevation in abbrevations %}
+                    <tr>
+                        <td>{{ abbrevation.id }}</td>
+                        <td>{{ abbrevation.abbrevation }}</td>
+                        <td>{{ abbrevation.explanation }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 
-    <!-- Displaying events table -->
-    <h2>events</h2>
-    <table border="1">
-        <tr>
-            <th>id</th>
-            <th>name</th>
-            <th>description</th>
-            <th>country</th>
-            <th>time</th>
-            <th>info</th>
-        </tr>
-        {% for event in events %}
-        <tr>
-            <td>{{ event.id }}</td>
-            <td>{{ event.name }}</td>
-            <td>{{ event.description }}</td>
-            <td>{{ event.country }}</td>
-            <td>{{ event.time }}</td>
-            <td>{{ event.info }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+            <!-- Displaying stakeholders table -->
+            <h2>stakeholders</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>name</th>
+                        <th>type</th>
+                        <th>description</th>
+                        <th>contact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stakeholder in stakeholders %}
+                    <tr>
+                        <td>{{ stakeholder.id }}</td>
+                        <td>{{ stakeholder.name }}</td>
+                        <td>{{ stakeholder.type }}</td>
+                        <td>{{ stakeholder.description }}</td>
+                        <td>{{ stakeholder.contact }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 
-    <!-- Displaying users table -->
-    <h2>users</h2>
-    <table border="1">
-        <tr>
-            <th>id</th>
-            <th>username</th>
-            <th>role</th>
-        </tr>
-        {% for user in users %}
-        <tr>
-            <td>{{ user.id }}</td>
-            <td>{{ user.username }}</td>
-            <td>{{ user.role }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+            <!-- Displaying events table -->
+            <h2>events</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>name</th>
+                        <th>description</th>
+                        <th>country</th>
+                        <th>time</th>
+                        <th>info</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in events %}
+                    <tr>
+                        <td>{{ event.id }}</td>
+                        <td>{{ event.name }}</td>
+                        <td>{{ event.description }}</td>
+                        <td>{{ event.country }}</td>
+                        <td>{{ event.time }}</td>
+                        <td>{{ event.info }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Displaying users table -->
+            <h2>users</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>username</th>
+                        <th>role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.role }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+    <a href="/welcome" class="menu-link">Menu</a>
 
 </body>
 

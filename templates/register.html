@@ -1,31 +1,63 @@
-<h2>Registration page</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration page</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <style>
+    .menu-link {
+        position: absolute;
+        top: 30px;
+        right: 100px;
+    }
+</style>
+</head>
+<body class="container mt-5">
 
-<form action="/register" method="post">
-<b> <strong> Username:</strong><br> 
-<input type="text" name="username" id="username" minlength="1" maxlength="25" class="input-box" placeholder="1-25 characters" required></b><br>
-<b> <strong> Password:</strong><br>
-<input type="password" name="password1" id="password1" minlength="1" maxlength="25" class="input-box" placeholder="1-25 characters" required></b><br>
-<b> <strong> Repeat password:</strong><br>
-<input type="password" name="password2" id="password2" minlength="1" maxlength="25" class="input-box" placeholder="1-25 characters" required></b><br>
+  <h2>Registration page</h2>
 
-<select name="role">
-<option value=1> Regular user
-<option value=2> Admin
-</select>
+  <form action="/register" method="post">
+    <div class="form-group" style="width: 50%;">
+      <label for="username"><strong>Username:</strong></label>
+      <input type="text" name="username" id="username" minlength="1" maxlength="25" class="form-control input-box" placeholder="1-25 characters" required style="width: 100%;">
+    </div>
 
-<br>
-<br>
-<input type="submit" value="Confirm registration">
-</form> 
-<a href="/"><input type="submit" value="Go back to front page"></a>
+    <div class="form-group" style="width: 50%;">
+      <label for="password1"><strong>Password:</strong></label>
+      <input type="password" name="password1" id="password1" minlength="1" maxlength="25" class="form-control input-box" placeholder="1-25 characters" required style="width: 100%;">
+    </div>
 
-<p>{% with messages = get_flashed_messages() %}
-  {% if messages %}
+    <div class="form-group" style="width: 50%;">
+      <label for="password2"><strong>Repeat password:</strong></label>
+      <input type="password" name="password2" id="password2" minlength="1" maxlength="25" class="form-control input-box" placeholder="1-25 characters" required style="width: 100%;">
+    </div>
+
+    <div class="form-group" style="width: 50%;">
+      <label for="role"><strong>Select Role:</strong></label>
+      <select name="role" class="form-control" style="width: 100%;">
+        <option value="1">Regular user</option>
+        <option value="2">Admin</option>
+      </select>
+    </div>
+
+    <br>
+    <button type="submit" class="btn btn-primary">Confirm registration</button>
+  </form>
+
+  <a href="/" class="menu-link">Sign in</a>
+
+  <p>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
     <div class="flash-messages">
       {% for message in messages %}
-        <strong><div class="alert alert-{{ message[1] }}">{{ message }}</div></strong>
+      <strong><div class="alert alert-{{ message[1] }}">{{ message }}</div></strong>
       {% endfor %}
     </div>
-  {% endif %}
-{% endwith %}
-</p>
+    {% endif %}
+    {% endwith %}
+  </p>
+
+</body>
+</html>

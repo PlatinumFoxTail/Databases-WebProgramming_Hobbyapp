@@ -1,4 +1,19 @@
-<strong>Exception:</strong> {{ message }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body class="bg-light d-flex align-items-center justify-content-center" style="height: 100vh;">
 
-<p><a href="/register"><input type="submit" value="Return to registration"></a></p>
-<p><a href="/"><input type="submit" value="Go to login"></a></p>
+  <div class="container text-center">
+    <h1 class="display-4 text-danger">Error</h1>
+    <p class="lead">{{ message }}</p>
+    <a href="/register" class="btn btn-primary">Return to registration</a>
+    <a href="/" class="btn btn-secondary">Go to login</a>
+  </div>
+
+</body>
+</html>
