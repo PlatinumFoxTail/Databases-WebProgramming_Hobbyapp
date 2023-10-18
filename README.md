@@ -48,7 +48,7 @@ I. General status of app:
 - Admin can remove data OK.
 
 II. To do if time:
-- Sovelluksen käyttöliittymä ja ulkoasu ovat viimeisteltyjä
+- Sovelluksen käyttöliittymä ja ulkoasu ovat viimeisteltyjä: Improve still register, error, and admin
 - Ading all data into tables in Github?
 - Change to if not result: and if result: (https://hy-tsoha.github.io/materiaali/tekninen_tarkastuslista/)
 - Modify SELECT * and divide SQL searches into separate rows as advised (https://hy-tsoha.github.io/materiaali/tekninen_tarkastuslista/)
