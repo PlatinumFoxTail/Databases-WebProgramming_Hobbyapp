@@ -1,23 +1,58 @@
-{% if session.username %}
-<p>You are signed in as {{ session.username }}</p>
-<nav>
-    <ul>
-        <li><a href="/welcome">Menu</a></li>
-        <li><a href="/logout">Sign out</a></li>
-    </ul>
-</nav>
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCI's Little Helper App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        .half-width {
+            width: 50%;
+        }
+    </style>
+</head>
 
-{% else %}
-<b>Log in to BCI's little helper app:</b>
-<form action="/login" method="POST">
-<p>Username:<br>
-<input type="text" name="username"></p>
-<p>Password:<br>
-<input type="password" name="password"></p>
-<input type="submit" value="Sign in">
-</form>
-{% endif %}
-<form action="/register" method="GET">
-<input type="submit" value="Register a new user">
-</form>
+<body>
+    <div class="container mt-5 offset-md-3 col-md-6">
+        {% if session.username %}
+        <div class="alert alert-success half-width" role="alert">
+            You are signed in as {{ session.username }}
+        </div>
+        <nav class="mb-3">
+            <ul class="nav">
+                <li class="nav-item"><a class="nav-link" href="/welcome">Menu</a></li>
+                <li class="nav-item"><a class="nav-link" href="/logout">Sign out</a></li>
+            </ul>
+        </nav>
+
+        {% else %}
+        <div class="alert alert-primary" role="alert">
+            <b>Log in to BCI's little helper app</b>
+            <p></p>
+            <p>Exploring and contributing abbrevations, literature, stakeholders, and events within the field of Brain-computer interface is just around the corner</p>
+        </div>
+        <form action="/login" method="POST">
+            <div class="form-group half-width">
+                <label for="username">Username:</label>
+                <input type="text" class="form-control" id="username" name="username">
+            </div>
+            <div class="form-group half-width">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password">
+            </div>
+            <button type="submit" class="btn btn-primary">Sign in</button>
+        </form>
+        {% endif %}
+
+        <form action="/register" method="GET" class="mt-3 half-width">
+            <button type="submit" class="btn btn-secondary">Register a new user</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

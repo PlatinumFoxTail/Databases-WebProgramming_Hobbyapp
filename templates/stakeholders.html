@@ -1,77 +1,105 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BCI stakeholders</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        .half-width {
+            width: 50%;
+        }
+
+        .menu-link {
+            position: absolute;
+            top: 30px;
+            right: 100px;
+        }
+    </style>
 </head>
-<body>
-    <!-- Search Form -->
-    <h2>Search BCI stakeholder</h2>
-    <form method="POST" action="/searchstakeholders">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" placeholder="Enter word or part of word or leave blank" size="50">
-        <br>
 
-        <label for="type">Type:</label>
-        <input type="text" id="type" name="type" placeholder="Enter word or part of word or leave blank" size="50">
-        <br>
-
-        <label for="description">Description:</label>
-        <input type="text" id="description" name="description" placeholder="Enter word or part of word or leave blank" size="50">
-        <br>
-
-        <label for="contact">Contact:</label>
-        <input type="text" id="contact" name="contact" placeholder="Enter word or part of word or leave blank" size="50">
-        <br>
-
-        <button type="submit">Search</button>
-        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-    </form>
-
-    <!-- Add Stakeholder Form -->
-    <form method="POST" action="/stakeholders">
-        <h2>Add BCI stakeholder</h2>
-        <input type="text" name="name" placeholder="Write stakeholder name" required size="50"><br>
-        <input type="text" name="type" placeholder="Write suitable type: Company/Non-profit/NGO/Government" required size="55"><br>
-        <input type="text" name="description" placeholder="Write description e.g. company description" required size="50"><br>
-        <input type="text" name="contact" placeholder="Write contact details e.g. web-page" required size="50"><br>
-        <button type="submit">Add</button>
-        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-    </form>
-
-    <!-- Display if Stakeholder addtion succesful -->
-    <p>{% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <div class="flash-messages">
-          {% for message in messages %}
-            <strong><div class="alert alert-{{ message[1] }}">{{ message }}</div></strong>
-          {% endfor %}
+<body class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="mb-4">Search BCI stakeholders</h2>
+            <form method="POST" action="/searchstakeholders" class="half-width mb-4">
+                <!-- Search Form -->
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name"
+                        placeholder="Enter word or part of word or leave blank">
+                </div>
+                <div class="form-group">
+                    <label for="type">Type:</label>
+                    <input type="text" class="form-control" id="type" name="type"
+                        placeholder="Enter word or part of word or leave blank">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <input type="text" class="form-control" id="description" name="description"
+                        placeholder="Enter word or part of word or leave blank">
+                </div>
+                <div class="form-group">
+                    <label for="contact">Contact:</label>
+                    <input type="text" class="form-control" id="contact" name="contact"
+                        placeholder="Enter word or part of word or leave blank">
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+            </form>
         </div>
-      {% endif %}
+        <div class="col-md-6">
+            <h2 class="mb-4">Add BCI stakeholder</h2>
+            <form method="POST" action="/stakeholders" class="half-width mb-4">
+                <!-- Add Stakeholder Form -->
+                <div class="form-group">
+                    <input type="text" class="form-control" name="name" placeholder="Write stakeholder name" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="type"
+                        placeholder="Write suitable type: Company/Non-profit/NGO/Government" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="description"
+                        placeholder="Write description e.g. company description" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="contact"
+                        placeholder="Write contact details e.g. web-page" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Add</button>
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+            </form>
+        </div>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="flash-messages mb-4">
+        {% for message in messages %}
+        <div class="alert alert-{{ message[1] }}"><strong>{{ message }}</strong></div>
+        {% endfor %}
+    </div>
+    {% endif %}
     {% endwith %}
-    </p> 
-    
-    <!-- Display Literature Results -->
-    
-     {% if results %}
-     <h2>Results</h2>
-     <ul>
-         {% for item in results %}
-             <li>
-                 <strong>Name:</strong> {{ item.name }}<br>
-                 <strong>Type:</strong> {{ item.type }}<br>
-                 <strong>Description:</strong> {{ item.description }}<br>
-                 <strong>Contact:</strong> {{ item.contact }}<br>
-             </li>
-         {% endfor %}
-     </ul>
-     {% endif %}
 
-
-<nav>
-    <ul>
-        <li><a href="/welcome">Back to menu</a></li>
+    {% if results %}
+    <h2>Results</h2>
+    <ul class="list-group half-width">
+        {% for item in results %}
+        <li class="list-group-item">
+            <strong>Name:</strong> {{ item.name }}<br>
+            <strong>Type:</strong> {{ item.type }}<br>
+            <strong>Description:</strong> {{ item.description }}<br>
+            <strong>Contact:</strong> {{ item.contact }}<br>
+        </li>
+        {% endfor %}
     </ul>
-</nav>
+    {% endif %}
+
+    <a href="/welcome" class="menu-link">Menu</a>
 
 </body>
+
 </html>
