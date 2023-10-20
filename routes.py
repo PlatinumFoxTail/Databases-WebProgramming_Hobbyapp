@@ -299,9 +299,9 @@ def admin():
 
         remove = dataprocessing.remove_row(table_name, row_id)
 
-        if remove == True:
+        if remove:
             flash(f"Row with id = {row_id} removed succesfully from table {table_name}", "success")
-        if remove == False:
+        if not remove:
             flash(f"Please try again, row {row_id} not removed from {table_name}", "success")
 
     abbrevations = dataprocessing.fetch_abbrevations()
