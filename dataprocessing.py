@@ -1,6 +1,5 @@
+from sqlalchemy.sql import text
 from db import db
-from sqlalchemy.sql import text        
-
 
 def search_abbrevation(abbreviation: str):
     result = db.session.execute(
@@ -12,7 +11,7 @@ def search_abbrevation(abbreviation: str):
 def add_stakeholder(name:str, type:str, description:str, contact:str):
     #inserting the new stakeholder item into the database
     db.session.execute(
-        text("""INSERT INTO stakeholders (name, type, description, contact) 
+        text("""INSERT INTO stakeholders (name, type, description, contact)
                 VALUES (:name, :type, :description, :contact)"""),
         {"name": name, "type": type, "description": description, "contact": contact}
     )
@@ -47,7 +46,7 @@ def search_stakeholders(name:str, type:str, description:str, contact:str):
 def add_literature(title, author, keywords, rating, availability):
     #inserting the new literature item into the database
     db.session.execute(
-        text("""INSERT INTO literature (title, author, keywords, rating, availability) 
+        text("""INSERT INTO literature (title, author, keywords, rating, availability)
                 VALUES (:title, :author, :keywords, :rating, :availability)"""),
         {"title": title, "author": author, "keywords": keywords, "rating": rating, "availability": availability}
     )
@@ -86,7 +85,7 @@ def search_literature(title:str, author:str, keywords:str, rating:int, availabil
 def add_event(name, description, country, time, info):
     #inserting the new event item into the database
     db.session.execute(
-        text("""INSERT INTO events (name, description, country, time, info) 
+        text("""INSERT INTO events (name, description, country, time, info)
                 VALUES (:name, :description, :country, :time, :info)"""),
         {"name": name, "description": description, "country": country, "time": time, "info": info}
     )
@@ -112,7 +111,7 @@ def search_events(name, description, country, time, info):
         if len(time) == 4:  # Input in YYYY format
             query += " AND EXTRACT(YEAR FROM time) = :year"
             params["year"] = int(time)
-        elif len(time) == 7:  # Input in YYYY-MM format 
+        elif len(time) == 7:  # Input in YYYY-MM format
             query += " AND EXTRACT(YEAR FROM time) = :year AND EXTRACT(MONTH FROM time) = :month"
             year, month = map(int, time.split("-"))
             params["year"] = year

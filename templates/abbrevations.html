@@ -2,37 +2,54 @@
 <html>
 <head>
     <title>Search BCI abbreviations</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        .flash-messages {
+            margin-top: 20px;
+        }
+
+        .menu-link {
+            position: absolute;
+            top: 30px;
+            right: 100px;
+        }
+
+        .narrow-input {
+            width: 50%;
+        }
+    </style>
 </head>
-<body>
-    <h1>BCI abbreviation search</h1>
-    <form method="POST" action="/abbrevations">
-    <label for="abbreviation">Enter abbreviation:</label>
-    <input type="text" id="abbreviation" name="abbreviation" required>
-    <button type="submit">Search</button>
-    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+<body class="container mt-5">
+    <h2 class="mb-4">BCI abbrevation search</h2>
+    <form method="POST" action="/abbrevations" class="mb-3">
+        <div class="form-group">
+            <label for="abbreviation">Enter abbreviation:</label>
+            <input type="text" id="abbreviation" name="abbreviation" class="form-control narrow-input" placeholder="Write abbrevation e.g. BCI" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
+    
     {% if abbreviation %}
-    <p>Abbreviation: {{ abbreviation }}</p>
-    <p>Explanation: {{ explanation }}</p>
+        <div class="mb-3">
+            <p><strong>Abbreviation:</strong> {{ abbreviation }}</p>
+            <p><strong>Explanation:</strong> {{ explanation }}</p>
+        </div>
     {% endif %}
 
-<p>{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <div class="flash-messages">
-      {% for message in messages %}
-        <strong><div class="alert alert-{{ message[1] }}">{{ message }}</div></strong>
-          {% endfor %}
-        </div>
-      {% endif %}
-{% endwith %}
-</p>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message[1] }}" role="alert">
+                        <strong>{{ message }}</strong>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
 
-
-<nav>
-    <ul>
-        <li><a href="/welcome">Back to menu</a></li>
-    </ul>
-</nav>
+    <a href="/welcome" class="menu-link">Menu</a>
 
 </body>
 </html>
