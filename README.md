@@ -49,7 +49,6 @@ I. General status of app:
 
 II. To do if time:
 - Ading all data into tables in Github?
-- Modify SELECT * and divide SQL searches into separate rows as advised (https://hy-tsoha.github.io/materiaali/tekninen_tarkastuslista/)
 - Run pylint to find things to improve in code
 
 III. Project scope revision
