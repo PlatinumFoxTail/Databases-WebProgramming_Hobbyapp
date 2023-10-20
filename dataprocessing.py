@@ -12,7 +12,8 @@ def search_abbrevation(abbreviation: str):
 def add_stakeholder(name:str, type:str, description:str, contact:str):
     #inserting the new stakeholder item into the database
     db.session.execute(
-        text("INSERT INTO stakeholders (name, type, description, contact) VALUES (:name, :type, :description, :contact)"),
+        text("""INSERT INTO stakeholders (name, type, description, contact) 
+                VALUES (:name, :type, :description, :contact)"""),
         {"name": name, "type": type, "description": description, "contact": contact}
     )
     db.session.commit()
@@ -21,7 +22,7 @@ def add_stakeholder(name:str, type:str, description:str, contact:str):
 
 def search_stakeholders(name:str, type:str, description:str, contact:str):
     #building the SQL query based on the provided fields
-    query = "SELECT * FROM stakeholders WHERE 1=1"
+    query = "SELECT id, name, type, description, contact FROM stakeholders WHERE 1=1"
     params = {}
 
     if name:
@@ -46,7 +47,8 @@ def search_stakeholders(name:str, type:str, description:str, contact:str):
 def add_literature(title, author, keywords, rating, availability):
     #inserting the new literature item into the database
     db.session.execute(
-        text("INSERT INTO literature (title, author, keywords, rating, availability) VALUES (:title, :author, :keywords, :rating, :availability)"),
+        text("""INSERT INTO literature (title, author, keywords, rating, availability) 
+                VALUES (:title, :author, :keywords, :rating, :availability)"""),
         {"title": title, "author": author, "keywords": keywords, "rating": rating, "availability": availability}
     )
     db.session.commit()
@@ -56,7 +58,7 @@ def add_literature(title, author, keywords, rating, availability):
 def search_literature(title:str, author:str, keywords:str, rating:int, availability:str):
 
     #building the SQL query based on the provided fields
-    query = "SELECT * FROM literature WHERE 1=1"
+    query = "SELECT id, title, author, keywords, rating, availability FROM literature WHERE 1=1"
     params = {}
 
     if title:
@@ -84,7 +86,8 @@ def search_literature(title:str, author:str, keywords:str, rating:int, availabil
 def add_event(name, description, country, time, info):
     #inserting the new event item into the database
     db.session.execute(
-        text("INSERT INTO events (name, description, country, time, info) VALUES (:name, :description, :country, :time, :info)"),
+        text("""INSERT INTO events (name, description, country, time, info) 
+                VALUES (:name, :description, :country, :time, :info)"""),
         {"name": name, "description": description, "country": country, "time": time, "info": info}
     )
     db.session.commit()
@@ -93,7 +96,7 @@ def add_event(name, description, country, time, info):
 
 def search_events(name, description, country, time, info):
     #building the SQL query based on the provided fields
-    query = "SELECT * FROM events WHERE 1=1"
+    query = "SELECT id, name, description, country, time, info FROM events WHERE 1=1"
     params = {}
 
     if name:
@@ -144,21 +147,21 @@ def remove_row(table_name, row_id):
         return False
 
 def fetch_literature():
-    query1 = "SELECT * FROM literature WHERE 1=1"
+    query1 = "SELECT id, title, author, keywords, rating, availability FROM literature WHERE 1=1"
     result1 = db.session.execute(text(query1))
     literature = result1.fetchall()
 
     return literature
 
 def fetch_abbrevations():
-    query2 = "SELECT * FROM abbrevations WHERE 1=1"
+    query2 = "SELECT id, abbrevation, explanation FROM abbrevations WHERE 1=1"
     result2 = db.session.execute(text(query2))
     abbrevations = result2.fetchall()
 
     return abbrevations
 
 def fetch_stakeholders():
-    query3 = "SELECT * FROM stakeholders WHERE 1=1"
+    query3 = "SELECT id, name, type, description, contact FROM stakeholders WHERE 1=1"
     result3 = db.session.execute(text(query3))
     stakeholders = result3.fetchall()
 

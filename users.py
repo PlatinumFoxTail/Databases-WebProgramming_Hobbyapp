@@ -11,7 +11,8 @@ def create_user(username: str, password: str, role: int):
     
     #inserting username, hash value, and role to users table
     try:
-        sql = text("INSERT INTO users (username, password, role) VALUES (:username, :password, :role)")
+        sql = text("""INSERT INTO users (username, password, role) 
+                      VALUES (:username, :password, :role)""")
         db.session.execute(sql, {"username":username, "password":hash_value, "role": role})
         db.session.commit()
     except:
